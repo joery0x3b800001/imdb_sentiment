@@ -1,0 +1,22 @@
+# Parameter-efficient (LoRA) fine-tune of a small decoder LLM
+data:
+  dataset_name: imdb
+  max_length: 256
+  val_size: 0.1
+
+model:
+  model_name: Qwen/Qwen2.5-0.5B
+  use_lora: true
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_target_modules: [q_proj, k_proj, v_proj, o_proj]
+
+train:
+  output_dir: outputs/qwen-lora-imdb
+  num_epochs: 2
+  batch_size: 8
+  eval_batch_size: 32
+  grad_accum_steps: 2
+  learning_rate: 1.0e-4
+  early_stopping_patience: 1

@@ -1,0 +1,25 @@
+# Full fine-tune of a small encoder model (fast, runs on a modest GPU or even CPU)
+data:
+  dataset_name: imdb
+  max_length: 256
+  val_size: 0.1
+  train_subset: null     # set e.g. 2000 for a quick smoke test
+  test_subset: null
+  num_proc: 4
+
+model:
+  model_name: distilbert-base-uncased
+  use_lora: false
+
+train:
+  output_dir: outputs/distilbert-imdb
+  num_epochs: 3
+  batch_size: 16
+  eval_batch_size: 64
+  grad_accum_steps: 1
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  early_stopping_patience: 2
+  seed: 42
+  report_to: none
